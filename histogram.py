@@ -1,6 +1,6 @@
 import time
 
-def histogram_list_of_lists(file_name):
+def load_words(file_name):
     file = open(file_name,'r')
     read_words = file.readlines()
     file.close()
@@ -8,7 +8,13 @@ def histogram_list_of_lists(file_name):
     for line in read_words:
         split_line = line.strip().split(" ")
         for word in split_line:
-            words.append(word.strip("(),!."))
+            if(word.lower() != ""):
+                words.append(word.strip("(),!."))
+
+    return words
+
+def histogram_list_of_lists(text):
+    words = text
 
     #print(words)
 
@@ -31,15 +37,8 @@ def histogram_list_of_lists(file_name):
     return to_return
 
 
-def histogram_count_lists_try_catch(file_name):
-    file = open(file_name,'r')
-    read_words = file.readlines()
-    file.close()
-    words = list()
-    for line in read_words:
-        split_line = line.rstrip().split(" ")
-        for word in split_line:
-            words.append(word.strip("(),!."))
+def histogram_count_lists_try_catch(text):
+    words = text
 
     to_return = list()
     ones_list = list()
@@ -75,17 +74,14 @@ def histogram_count_lists_try_catch(file_name):
         if not wasFound:
             to_return[0][1].append(word.lower())
 
+    max = len(to_return)
+    for index in range(max):
+        if(not to_return[max-index-1][1]):
+            to_return.pop(max-index-1)
     return to_return
 
 def histogram_count_lists(file_name):
-    file = open(file_name,'r')
-    read_words = file.readlines()
-    file.close()
-    words = list()
-    for line in read_words:
-        split_line = line.rstrip().split(" ")
-        for word in split_line:
-            words.append(word.strip("(),!.-"))
+    words = load_words(file_name)
 
     to_return = list()
     ones_list = list()
@@ -127,9 +123,11 @@ def histogram_count_lists(file_name):
     return to_return
 
 
+
 #text = "how How now Brown brown cow cow cow"
 current = time.perf_counter()
+text = load_words("notes.txt")
 #print(histogram_count_lists("notes.txt"))
-print(histogram_list_of_lists("notes.txt"))
-#print(histogram_count_lists_try_catch("notes.txt"))
+#print(histogram_list_of_lists(text))
+print(histogram_count_lists_try_catch(text))
 print(time.perf_counter()-current)
