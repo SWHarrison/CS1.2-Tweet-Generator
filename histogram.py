@@ -125,9 +125,9 @@ def histogram_count_lists(file_name):
 
 
 #text = "how How now Brown brown cow cow cow"
-current = time.perf_counter()
-text = load_words("notes.txt")
+#current = time.perf_counter()
+#text = load_words("notes.txt")
 #print(histogram_count_lists("notes.txt"))
 #print(histogram_list_of_lists(text))
-print(histogram_count_lists_try_catch(text))
-print(time.perf_counter()-current)
+#print(histogram_count_lists_try_catch(text))
+#print(time.perf_counter()-current)

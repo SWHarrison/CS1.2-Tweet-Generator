@@ -19,3 +19,7 @@ while(i <= length):
     i += 1
 
 print(new_word)
+
+for(i = 1 ; i<words.length; i*=2){
+
+}
