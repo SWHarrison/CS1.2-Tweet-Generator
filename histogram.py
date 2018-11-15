@@ -1,6 +1,7 @@
 import time
 
 def load_words(file_name):
+    '''Loads words from a file and cleans text of most special characters'''
     file = open(file_name,'r')
     read_words = file.readlines()
     file.close()
@@ -14,12 +15,16 @@ def load_words(file_name):
     return words
 
 def histogram_list_of_lists(text):
+    '''Creates a histogram of word frequency given a list of words'''
+
     words = text
 
     #print(words)
 
     to_return = list()
 
+    #Loops through every word, creates a new list mimicing a key value pair
+    #if no lists exists for it, other wise increments the number of occurences
     for word in words:
         wasFound=False
         for value in to_return:
@@ -36,10 +41,25 @@ def histogram_list_of_lists(text):
 
     return to_return
 
+def histogram_dictionary(text):
+    '''Dictionary representation of histogram of text'''
+    to_return = {}
+    for word in text:
+        if word.lower() in to_return:
+            to_return[word.lower()] += 1
+        else:
+            to_return[word.lower()] = 1
+    return to_return
 
 def histogram_count_lists_try_catch(text):
+    '''Creates a reversed histogram of word frequency given a list of words.
+    Instead of storing the word and it's number of occurences, it stores
+    the number of occurences and the words that have that frequency. It then
+    removes the arrays where no words match the number of occurences.'''
+
     words = text
 
+    #Creates the initial list of one's occurences
     to_return = list()
     ones_list = list()
     ones_list.append(1)
@@ -47,9 +67,12 @@ def histogram_count_lists_try_catch(text):
     ones_list.append(empty_list)
     to_return.append(ones_list)
 
+    #Loops through each word in words
     for word in words:
         wasFound=False
+        #Loops through each array of the histogram so far
         for array in to_return:
+            #Tries to find a word and it's index in the histogram
             try:
                 index = array[1].index(word.lower())
                 wasFound=True
@@ -81,6 +104,7 @@ def histogram_count_lists_try_catch(text):
     return to_return
 
 def histogram_count_lists(file_name):
+    '''Less efficient version of the above function'''
     words = load_words(file_name)
 
     to_return = list()
@@ -123,11 +147,14 @@ def histogram_count_lists(file_name):
     return to_return
 
 
-
-#text = "how How now Brown brown cow cow cow"
-#current = time.perf_counter()
-#text = load_words("notes.txt")
-#print(histogram_count_lists("notes.txt"))
-#print(histogram_list_of_lists(text))
-#print(histogram_count_lists_try_catch(text))
-#print(time.perf_counter()-current)
+if __name__ == "__main__":
+    #text = "how How now Brown brown cow cow cow"
+    current = time.perf_counter()
+    text = load_words("notess.txt")
+    #print(histogram_count_lists("notes.txt"))
+    #print(histogram_list_of_lists(text))
+    histogram_dict = histogram_dictionary(text)
+    histogram = list(histogram_dict.items())
+    #print(histogram_count_lists_try_catch(text))
+    print(histogram)
+    print(time.perf_counter()-current)

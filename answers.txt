@@ -1,0 +1,33 @@
+What are the key features of the application? Are these clearly separated into their own files, classes, and/or modules?
+
+The application will randomly produce sentences comprised of words randomly sampled from a corpus text
+
+
+Are the names of files, modules, functions, and variables appropriate and accurate? Would a new programmer be able to understand the names without too much contextual knowledge?
+
+They could understand what the program does by the names and comments.
+
+
+What are the scopes of variables and are they appropriate for their use case? If there are global variables, why are they needed?
+
+There are no global variables.
+
+
+Are the functions small and clearly specified, with as few side effects as possible?
+
+There are no global variables to change nor do any functions mutate data, they are all "pure" functions.
+
+
+Are there functions that could be better organized in an Object-Oriented Programming style by defining them as methods of a class?
+
+Outside of the listogram/dictogram change, every function created so far would become a method of these classes.
+
+
+Can files be used as both modules and as scripts?
+
+Yes, they contain the line ` if __name__ == "__main__": ` allowing it to run as scripts
+
+
+Do modules all depend on each other or can they be used independently?
+
+Modules can function separately but they require specific data to function, that is most easily obtained from the other modules.
