@@ -19,9 +19,21 @@ def sample_lists_of_lists(text_length, histogram_list):
     return histogram_list[index][0]
 
 
-def sample_dictionary(text_length, histogram_dict):
-    histogram_list = list(histogram_dict.items())
-    return sample_lists_of_lists(text_length,histogram_list)
+def sample_dictionary(histogram_dict):
+    #Great solution but Zurich laughed at it
+    #histogram_list = list(histogram_dict.items())
+    #return sample_lists_of_lists(text_length,histogram_list)
+    max = 0
+    for key in histogram_dict:
+        max += histogram_dict[key]
+    value = random.randrange(max)
+
+    count = 0
+    for key in histogram_dict:
+        count += histogram_dict[key]
+        if(count > value):
+            return key
+
 
 
 def sample_count_of_lists(text_length, histogram_list):

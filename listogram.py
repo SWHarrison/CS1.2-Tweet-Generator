@@ -2,6 +2,7 @@
 
 from __future__ import division, print_function  # Python 2 and 3 compatibility
 import time, random
+from queue import Queue
 
 class Listogram(list):
     """Listogram is a histogram implemented as a subclass of the list type."""
@@ -92,7 +93,7 @@ def print_histogram(word_list):
     print()
 
 
-def get_word_list(text, word_to_find):
+def get_word_list(text, words_to_find):
     to_return = list()
     index = 0
     for word in text:

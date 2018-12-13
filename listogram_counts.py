@@ -13,17 +13,47 @@ class Listogram(list):
         # Add properties to track useful word counts for this histogram
         self.types = 0  # Count of distinct word types in this histogram
         self.tokens = 0  # Total count of all word tokens in this histogram
+        self.counts = list()
+        ones_list = list()
+        ones_list.append(1)
+        empty_list = list()
+        ones_list.append(empty_list)
+        self.counts.append(ones_list)
         # Count words in given list, if any
         if word_list is not None:
-            for word in word_list:
-                self.add_count(word)
+            add_counts(word_list)
 
-    def add_count(self, word, count=1):
+    def add_counts(self, words):
         """Increase frequency count of given word by given count amount."""
-        for counts in self:
-            try:
-                index = counts.index(word.lower())
-                
+        for word in words:
+            wasFound=False
+            #Loops through each array of the histogram so far
+            for array in to_return:
+                #Tries to find a word and it's index in the histogram
+                try:
+                    index = array[1].index(word.lower())
+                    wasFound=True
+                    if(array[0] == len(to_return)):
+                        word_to_add = array[1].pop(index)
+                        to_add = list()
+                        to_add.append(array[0]+1)
+                        list_list = list()
+                        list_list.append(word_to_add)
+                        to_add.append(list_list)
+                        to_return.append(to_add)
+                    else:
+                        word_to_add = array[1].pop(index)
+                        count = array[0]
+                        to_return[count][1].append(word_to_add)
+
+                    break
+
+                except ValueError:
+                    pass
+
+            if not wasFound:
+                to_return[0][1].append(word.lower())
+
 
 
 

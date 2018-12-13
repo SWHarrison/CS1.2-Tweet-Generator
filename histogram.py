@@ -150,7 +150,7 @@ def histogram_count_lists(file_name):
 if __name__ == "__main__":
     #text = "how How now Brown brown cow cow cow"
     current = time.perf_counter()
-    text = load_words("notess.txt")
+    text = load_words("corpus.txt")
     #print(histogram_count_lists("notes.txt"))
     #print(histogram_list_of_lists(text))
     histogram_dict = histogram_dictionary(text)

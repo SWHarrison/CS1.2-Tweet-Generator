@@ -15,14 +15,6 @@ class Queue(LinkedList):
         node_to_return = self.head
         self.delete(node_to_return.data)
 
-    def __iter__(self):
-
-        super(self).__iter__
-
-    def __next__(self):
-
-        super(self).__next__
-
 if __name__ == "__main__":
 
     q = Queue()
