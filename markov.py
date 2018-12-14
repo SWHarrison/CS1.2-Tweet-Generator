@@ -1,30 +1,30 @@
-import dictogram
+from dictogram import Dictogram, get_word_list, sample_dictionary, load_words
 from sample import sample_dictionary
 from circular_buffer import CircularBuffer
-import random
+import random, pickle
 
 file = open("books.txt",'r')
 books = file.readlines()
 file.close()
 file_name = "raw_corpus_part.txt"
-n = 3
-text = dictogram.load_words(file_name)
-file_name = "notes.txt"
-text2 = dictogram.load_words(file_name)
-text += text2
+n = 4
+text = load_words(file_name)
+print(text)
+
+markov = pickle.load( open( "save.p", "rb" ) )
+
+for key in markov:
+    print("key: " + str(key))
+    print(markov[key])
 
 sentence = ""
 start_index = random.randrange(len(text)-n)
 current = CircularBuffer(n)
 for i in range(n):
     current.enqueue(text[start_index+i])
-
-sentence_length = random.randint(8,20)
-for i in range(sentence_length):
+for i in range(8):
     key = tuple(current.items())
-    word_list = dictogram.get_word_list(text, key, n)
-    dicto = dictogram.Dictogram(word_list)
-    new_word = sample_dictionary(dicto)
+    new_word = sample_dictionary(markov[key])
     sentence += " " + new_word
     current.enqueue(new_word)
 

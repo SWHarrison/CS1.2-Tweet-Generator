@@ -41,6 +41,31 @@ def histogram_list_of_lists(text):
 
     return to_return
 
+def histogram_tuples(text):
+
+    to_return = list()
+
+    for word in text:
+        wasFound = False
+        i = 0
+        for value in to_return:
+            if word.lower() == value[0].lower():
+                wasFound = True
+                num = value[1]
+                print(value)
+
+                to_return.pop(i)
+                to_return.append((word.lower(), num+1))
+                break
+            i += 1
+
+        if not wasFound:
+            to_return.append((word.lower(), 1))
+
+
+    return to_return
+
+
 def histogram_dictionary(text):
     '''Dictionary representation of histogram of text'''
     to_return = {}
@@ -150,11 +175,10 @@ def histogram_count_lists(file_name):
 if __name__ == "__main__":
     #text = "how How now Brown brown cow cow cow"
     current = time.perf_counter()
-    text = load_words("corpus.txt")
+    text = load_words("notess.txt")
     #print(histogram_count_lists("notes.txt"))
     #print(histogram_list_of_lists(text))
-    histogram_dict = histogram_dictionary(text)
-    histogram = list(histogram_dict.items())
+    histogram = histogram_tuples(text)
     #print(histogram_count_lists_try_catch(text))
-    print(histogram)
     print(time.perf_counter()-current)
+    print(histogram)

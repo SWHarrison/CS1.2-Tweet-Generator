@@ -1,7 +1,7 @@
 #!python
 from __future__ import division, print_function  # Python 2 and 3 compatibility
 from circular_buffer import CircularBuffer
-import re, random
+import re, random, pickle
 
 
 class Dictogram(dict):
@@ -101,8 +101,8 @@ def main():
     file = open("books.txt",'r')
     books = file.readlines()
     file.close()
-    file_name = "raw_corpus_part.txt"
-    n = 2
+    file_name = "raw_corpus.txt"
+    n = 4
     sentence = list()
     text = load_words(file_name)
     current_words = CircularBuffer(n)
@@ -110,36 +110,23 @@ def main():
         current_words.enqueue(text[i].lower())
     new_text = text[n-1:]
     markov = {}
-    for word in new_text:
+    for i in range(len(new_text)-n):
 
-        current_words.enqueue(word.lower())
+        current_words.enqueue(new_text[i].lower())
         key = tuple(current_words.items())
         if key not in markov:
-            words = get_word_list(text, key, n)
-            markov[key] = Dictogram(words)
+            markov[key] = Dictogram()
 
-    #for key in markov:
-    #    print("key: " + str(key))
-    #    print(markov[key])
+        print(key)
+        print(markov[key])
+        print(i)
+        markov[key].add_count(new_text[i+1],1)
 
+    for key in markov:
+        print("key: " + str(key))
+        print(markov[key])
 
-    sentence = ""
-    start_index = random.randrange(len(text)-n)
-    current = CircularBuffer(n)
-    for i in range(n):
-        current.enqueue(text[start_index+i])
-    for i in range(8):
-        key = tuple(current.items())
-        new_word = sample_dictionary(markov[key])
-        sentence += " " + new_word
-        current.enqueue(new_word)
-
-    sentence += "."
-    book = books[random.randrange(len(books))].rstrip()
-    chapter = random.randrange(20)
-    verse = random.randrange(100)
-    print(book + " " + str(chapter) + ":" + str(verse) + " " + sentence)
-
+    pickle.dump(markov, open( "save.p", "wb" ))
 
 
 if __name__ == '__main__':

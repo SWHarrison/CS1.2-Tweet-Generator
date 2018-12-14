@@ -34,6 +34,13 @@ def sample_dictionary(histogram_dict):
         if(count > value):
             return key
 
+def get_probablities(histogram_dict, length):
+    probs = list()
+    for value in histogram_dict:
+        probs.append(histogram_dict[value]/length)
+
+    return probs
+
 
 
 def sample_count_of_lists(text_length, histogram_list):
@@ -58,18 +65,16 @@ def sample_count_of_lists(text_length, histogram_list):
     return histogram_list[index][1][type_index]
 
 if __name__ == "__main__":
-    file_name = "notes.txt"
+    file_name = "notess.txt"
 
     #print(sample_lists_of_lists(file_name))
     text = histogram.load_words(file_name)
     text_length = len(text)
-    histogram_list = histogram.histogram_count_lists_try_catch(text)
-    #print(histogram_list)
-    current = time.time()
+    histogram_dict = histogram.histogram_dictionary(text)
+    print(get_probablities(histogram_dict, text_length))
+    '''current = time.time()
     words = list()
-    for i in range(10000):
-        word = sample_count_of_lists(text_length, histogram_list)
-        words.append(word)
+
 
     print(time.time() - current)
 
@@ -77,12 +82,12 @@ if __name__ == "__main__":
     print(samples)
 
     #text = histogram.load_words(file_name)
-    '''histogram_list2 = histogram.histogram_dictionary(text)
+    histogram_list2 = histogram.histogram_dictionary(text)
     current2 = time.time()
     words = list()
     for i in range(10000):
         word = sample_dictionary(text_length, histogram_list2)
-        words.append(word)'''
+        words.append(word)
 
     histogram_list2 = histogram.histogram_list_of_lists(text)
     current2 = time.time()
@@ -94,4 +99,4 @@ if __name__ == "__main__":
     print(time.time() - current2)
 
     samples = histogram.histogram_count_lists_try_catch(words)
-    print(samples)
+    print(samples)'''
